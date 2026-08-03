@@ -1,0 +1,2110 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumi — L'Éducation Éclairée | Côte d'Ivoire</title>
+    <meta name="description" content="Lumi est la plateforme éducative intelligente pour les élèves ivoiriens. Prépare le CEP, BEPC et BAC avec l'IA.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --orange: #FF6B00;
+            --orange-light: #FF8A33;
+            --orange-glow: rgba(255, 107, 0, 0.15);
+            --green: #006B3F;
+            --green-dark: #004D2D;
+            --green-light: #008A52;
+            --white: #FAFAF7;
+            --off-white: #F5F2EC;
+            --cream: #FFF8F0;
+            --dark: #0C0C0C;
+            --dark-surface: #141414;
+            --dark-card: #1A1A1A;
+            --text-primary: #1A1A1A;
+            --text-muted: #6B6560;
+            --text-light: #9A9590;
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --radius-xl: 32px;
+            --shadow-soft: 0 4px 24px rgba(0,0,0,0.06);
+            --shadow-medium: 0 8px 40px rgba(0,0,0,0.10);
+            --shadow-glow-orange: 0 0 60px rgba(255,107,0,0.2);
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Source Serif 4', Georgia, serif;
+            color: var(--text-primary);
+            background: var(--white);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        /* ===================== NAVBAR ===================== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.4s ease;
+            background: transparent;
+        }
+
+        .navbar.scrolled {
+            background: rgba(250, 250, 247, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 1px 0 rgba(0,0,0,0.06);
+            padding: 0.75rem 2rem;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .nav-logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--orange), var(--orange-light));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: white;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            box-shadow: 0 4px 12px rgba(255,107,0,0.3);
+        }
+
+        .nav-logo-text {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--dark);
+            letter-spacing: -0.03em;
+        }
+
+        .nav-logo-text span {
+            color: var(--orange);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--orange);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--orange);
+            transition: width 0.3s ease;
+            border-radius: 1px;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .btn {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 0.7rem 1.6rem;
+            border-radius: var(--radius-sm);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--text-primary);
+        }
+
+        .btn-ghost:hover {
+            background: var(--off-white);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--orange), var(--orange-light));
+            color: white;
+            box-shadow: 0 4px 16px rgba(255,107,0,0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(255,107,0,0.4);
+        }
+
+        .btn-green {
+            background: linear-gradient(135deg, var(--green), var(--green-light));
+            color: white;
+            box-shadow: 0 4px 16px rgba(0,107,63,0.3);
+        }
+
+        .btn-green:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,107,63,0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--orange);
+            border: 2px solid var(--orange);
+        }
+
+        .btn-outline:hover {
+            background: var(--orange);
+            color: white;
+        }
+
+        .btn-lg {
+            padding: 1rem 2.4rem;
+            font-size: 1.05rem;
+            border-radius: var(--radius-md);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            width: 32px;
+            height: 24px;
+            position: relative;
+            z-index: 1001;
+        }
+
+        .mobile-menu-btn span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background: var(--dark);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+            position: absolute;
+            left: 0;
+        }
+
+        .mobile-menu-btn span:nth-child(1) { top: 0; }
+        .mobile-menu-btn span:nth-child(2) { top: 50%; transform: translateY(-50%); }
+        .mobile-menu-btn span:nth-child(3) { bottom: 0; }
+
+        .mobile-menu-btn.active span:nth-child(1) {
+            top: 50%;
+            transform: translateY(-50%) rotate(45deg);
+        }
+        .mobile-menu-btn.active span:nth-child(2) { opacity: 0; }
+        .mobile-menu-btn.active span:nth-child(3) {
+            bottom: 50%;
+            transform: translateY(50%) rotate(-45deg);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: var(--white);
+            z-index: 999;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        /* ===================== HERO ===================== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(160deg, var(--cream) 0%, var(--white) 40%, var(--off-white) 100%);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -200px;
+            right: -200px;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--orange-glow), transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: pulseGlow 6s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -100px;
+            left: -100px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(0,107,63,0.08), transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: pulseGlow 8s ease-in-out infinite reverse;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { transform: scale(1); opacity: 0.6; }
+            50% { transform: scale(1.1); opacity: 1; }
+        }
+
+        .hero-content {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 8rem 2rem 4rem;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--orange-glow);
+            border: 1px solid rgba(255,107,0,0.15);
+            padding: 0.4rem 1rem;
+            border-radius: 100px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 0.8rem;
+            color: var(--orange);
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeUp 0.6s ease 0.2s forwards;
+        }
+
+        .hero-badge .dot {
+            width: 6px;
+            height: 6px;
+            background: var(--orange);
+            border-radius: 50%;
+            animation: blink 2s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .hero-title {
+            font-size: clamp(2.8rem, 5.5vw, 4.5rem);
+            font-weight: 900;
+            line-height: 1.05;
+            letter-spacing: -0.04em;
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeUp 0.6s ease 0.3s forwards;
+        }
+
+        .hero-title .highlight {
+            background: linear-gradient(135deg, var(--orange), #FF9040);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-title .highlight-green {
+            background: linear-gradient(135deg, var(--green), var(--green-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            line-height: 1.7;
+            color: var(--text-muted);
+            max-width: 520px;
+            margin-bottom: 2.5rem;
+            opacity: 0;
+            animation: fadeUp 0.6s ease 0.4s forwards;
+        }
+
+        .hero-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: fadeUp 0.6s ease 0.5s forwards;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 2.5rem;
+            opacity: 0;
+            animation: fadeUp 0.6s ease 0.6s forwards;
+        }
+
+        .hero-stat {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .hero-stat-number {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: var(--dark);
+            letter-spacing: -0.03em;
+        }
+
+        .hero-stat-number span {
+            color: var(--orange);
+        }
+
+        .hero-stat-label {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            font-family: 'Outfit', sans-serif;
+            font-weight: 500;
+        }
+
+        .hero-visual {
+            position: relative;
+            opacity: 0;
+            animation: fadeUp 0.8s ease 0.4s forwards;
+        }
+
+        .hero-phone {
+            width: 300px;
+            height: 600px;
+            background: var(--dark);
+            border-radius: 40px;
+            margin: 0 auto;
+            position: relative;
+            box-shadow: var(--shadow-medium), 0 0 0 3px #333, 0 0 0 6px #1a1a1a;
+            overflow: hidden;
+        }
+
+        .hero-phone-screen {
+            position: absolute;
+            inset: 8px;
+            border-radius: 34px;
+            background: linear-gradient(180deg, #FFF8F0 0%, #FFFFFF 100%);
+            overflow: hidden;
+            padding: 2rem 1.2rem;
+        }
+
+        .phone-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .phone-header .greeting {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 300;
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        .phone-header .name {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--dark);
+        }
+
+        .phone-card {
+            background: linear-gradient(135deg, var(--orange), var(--orange-light));
+            border-radius: var(--radius-md);
+            padding: 1rem;
+            color: white;
+            margin-bottom: 0.8rem;
+        }
+
+        .phone-card-title {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 0.75rem;
+            opacity: 0.9;
+            margin-bottom: 0.3rem;
+        }
+
+        .phone-card-value {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 1.6rem;
+        }
+
+        .phone-card-sub {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 400;
+            font-size: 0.65rem;
+            opacity: 0.8;
+            margin-top: 0.2rem;
+        }
+
+        .phone-card-green {
+            background: linear-gradient(135deg, var(--green), var(--green-light));
+        }
+
+        .phone-subjects {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+            margin-top: 0.8rem;
+        }
+
+        .phone-subject {
+            background: white;
+            border: 1px solid rgba(0,0,0,0.06);
+            border-radius: var(--radius-sm);
+            padding: 0.6rem;
+            text-align: center;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 0.65rem;
+            color: var(--text-primary);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .phone-subject .icon {
+            font-size: 1.2rem;
+            display: block;
+            margin-bottom: 0.2rem;
+        }
+
+        .hero-floating {
+            position: absolute;
+            background: white;
+            border-radius: var(--radius-md);
+            padding: 0.8rem 1rem;
+            box-shadow: var(--shadow-medium);
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .hero-floating.f1 {
+            top: 60px;
+            right: 0;
+            animation-delay: 0s;
+        }
+
+        .hero-floating.f2 {
+            bottom: 80px;
+            left: 0;
+            animation-delay: 1.5s;
+        }
+
+        .hero-floating .emoji {
+            font-size: 1.4rem;
+        }
+
+        .hero-floating .text strong {
+            display: block;
+            font-weight: 700;
+            font-size: 0.8rem;
+            color: var(--dark);
+        }
+
+        .hero-floating .text span {
+            color: var(--text-light);
+            font-size: 0.7rem;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===================== TRUSTED BY ===================== */
+        .trusted {
+            padding: 3rem 2rem;
+            text-align: center;
+            background: var(--off-white);
+            border-top: 1px solid rgba(0,0,0,0.04);
+        }
+
+        .trusted-label {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 500;
+            font-size: 0.8rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 1.5rem;
+        }
+
+        .trusted-logos {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            opacity: 0.4;
+        }
+
+        .trusted-item {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            letter-spacing: -0.02em;
+        }
+
+        /* ===================== SECTION COMMON ===================== */
+        .section {
+            padding: 6rem 2rem;
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 4rem;
+        }
+
+        .section-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 0.8rem;
+            color: var(--orange);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-bottom: 1rem;
+        }
+
+        .section-tag::before {
+            content: '';
+            width: 20px;
+            height: 2px;
+            background: var(--orange);
+            border-radius: 1px;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+
+        .section-desc {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-muted);
+        }
+
+        /* ===================== FEATURES ===================== */
+        .features {
+            background: var(--white);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            border: 1px solid rgba(0,0,0,0.06);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem 2rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--orange), var(--green));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+            transform-origin: left;
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-medium);
+            border-color: transparent;
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-icon.orange {
+            background: var(--orange-glow);
+        }
+
+        .feature-icon.green {
+            background: rgba(0,107,63,0.1);
+        }
+
+        .feature-icon.purple {
+            background: rgba(120,80,200,0.1);
+        }
+
+        .feature-icon.blue {
+            background: rgba(40,100,220,0.1);
+        }
+
+        .feature-icon.pink {
+            background: rgba(220,60,120,0.1);
+        }
+
+        .feature-icon.teal {
+            background: rgba(0,180,160,0.1);
+        }
+
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--dark);
+        }
+
+        .feature-desc {
+            font-size: 0.95rem;
+            line-height: 1.65;
+            color: var(--text-muted);
+        }
+
+        /* ===================== HOW IT WORKS ===================== */
+        .how-it-works {
+            background: var(--off-white);
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            position: relative;
+        }
+
+        .steps::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 12.5%;
+            right: 12.5%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--orange), var(--green));
+            opacity: 0.3;
+            z-index: 0;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step-number {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: white;
+            border: 3px solid var(--orange);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--orange);
+            margin: 0 auto 1.5rem;
+            box-shadow: var(--shadow-soft);
+            transition: all 0.3s ease;
+        }
+
+        .step:hover .step-number {
+            background: var(--orange);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .step-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .step-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* ===================== PROGRAMME ===================== */
+        .programme {
+            background: var(--white);
+        }
+
+        .programme-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .programme-card {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            background: white;
+            border: 1px solid rgba(0,0,0,0.06);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .programme-card:hover {
+            border-color: var(--orange);
+            box-shadow: 0 0 0 4px var(--orange-glow);
+        }
+
+        .programme-level {
+            width: 64px;
+            height: 64px;
+            min-width: 64px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 0.85rem;
+            color: white;
+            text-align: center;
+            line-height: 1.1;
+        }
+
+        .programme-level.college { background: linear-gradient(135deg, var(--orange), #FF9040); }
+        .programme-level.lycee { background: linear-gradient(135deg, var(--green), var(--green-light)); }
+        .programme-level.exam { background: linear-gradient(135deg, #6B21A8, #9333EA); }
+        .programme-level.all { background: linear-gradient(135deg, #0369A1, #38BDF8); }
+
+        .programme-info h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .programme-info p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* ===================== AI SECTION ===================== */
+        .ai-section {
+            background: var(--dark);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ai-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(ellipse at 20% 50%, rgba(255,107,0,0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(0,107,63,0.08) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .ai-section .section-tag {
+            color: var(--orange-light);
+        }
+
+        .ai-section .section-tag::before {
+            background: var(--orange-light);
+        }
+
+        .ai-section .section-title {
+            color: white;
+        }
+
+        .ai-section .section-desc {
+            color: rgba(255,255,255,0.6);
+        }
+
+        .ai-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .ai-chat {
+            background: var(--dark-card);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            max-width: 500px;
+        }
+
+        .ai-chat-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .ai-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--orange), var(--green));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .ai-chat-header-info strong {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.9rem;
+            display: block;
+        }
+
+        .ai-chat-header-info span {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.4);
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .chat-messages {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .chat-msg {
+            max-width: 85%;
+            padding: 0.8rem 1rem;
+            border-radius: var(--radius-md);
+            font-size: 0.88rem;
+            line-height: 1.55;
+        }
+
+        .chat-msg.user {
+            background: rgba(255,107,0,0.15);
+            border: 1px solid rgba(255,107,0,0.2);
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .chat-msg.ai {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.08);
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .ai-features-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .ai-features-list li {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .ai-features-list .check {
+            width: 28px;
+            height: 28px;
+            min-width: 28px;
+            border-radius: 50%;
+            background: rgba(0,107,63,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #4ADE80;
+            font-size: 0.85rem;
+            margin-top: 2px;
+        }
+
+        .ai-features-list h4 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            color: white;
+            margin-bottom: 0.2rem;
+        }
+
+        .ai-features-list p {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.5);
+            line-height: 1.5;
+        }
+
+        /* ===================== PRICING ===================== */
+        .pricing {
+            background: var(--off-white);
+        }
+
+        .pricing-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .pricing-toggle span {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .pricing-toggle span.active {
+            color: var(--dark);
+            font-weight: 700;
+        }
+
+        .toggle-switch {
+            width: 48px;
+            height: 26px;
+            background: var(--orange);
+            border-radius: 100px;
+            position: relative;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .toggle-switch::after {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            transition: transform 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+        }
+
+        .toggle-switch.yearly::after {
+            transform: translateX(22px);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: white;
+            border: 2px solid rgba(0,0,0,0.06);
+            border-radius: var(--radius-xl);
+            padding: 2.5rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .pricing-card.popular {
+            border-color: var(--orange);
+            box-shadow: var(--shadow-glow-orange);
+        }
+
+        .pricing-popular-badge {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--orange), var(--orange-light));
+            color: white;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 0.75rem;
+            padding: 0.3rem 1.2rem;
+            border-radius: 100px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            white-space: nowrap;
+        }
+
+        .pricing-name {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .pricing-price {
+            margin-bottom: 2rem;
+        }
+
+        .pricing-amount {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 900;
+            font-size: 2.8rem;
+            color: var(--dark);
+            letter-spacing: -0.03em;
+        }
+
+        .pricing-currency {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .pricing-period {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 400;
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-features li {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.5rem 0;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-family: 'Outfit', sans-serif;
+            font-weight: 400;
+        }
+
+        .pricing-features li .check-icon {
+            color: var(--green);
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .pricing-features li .cross-icon {
+            color: #CCC;
+            font-size: 1rem;
+        }
+
+        .pricing-card .btn {
+            width: 100%;
+            justify-content: center;
+        }
+
+        /* ===================== TESTIMONIALS ===================== */
+        .testimonials {
+            background: var(--white);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background: white;
+            border: 1px solid rgba(0,0,0,0.06);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            box-shadow: var(--shadow-soft);
+        }
+
+        .testimonial-stars {
+            color: #FBBF24;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .testimonial-text {
+            font-size: 0.95rem;
+            line-height: 1.65;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .testimonial-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        .testimonial-avatar.orange { background: linear-gradient(135deg, var(--orange), var(--orange-light)); }
+        .testimonial-avatar.green { background: linear-gradient(135deg, var(--green), var(--green-light)); }
+        .testimonial-avatar.purple { background: linear-gradient(135deg, #6B21A8, #9333EA); }
+
+        .testimonial-name {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--dark);
+        }
+
+        .testimonial-role {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        /* ===================== CTA ===================== */
+        .cta-section {
+            padding: 6rem 2rem;
+            background: linear-gradient(160deg, var(--dark) 0%, #1A1A1A 100%);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(255,107,0,0.12), transparent 60%);
+            pointer-events: none;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .cta-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 900;
+            color: white;
+            margin-bottom: 1rem;
+            letter-spacing: -0.03em;
+        }
+
+        .cta-desc {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 2.5rem;
+            line-height: 1.6;
+        }
+
+        .cta-actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .cta-note {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.35);
+            margin-top: 1.5rem;
+        }
+
+        /* ===================== FOOTER ===================== */
+        .footer {
+            background: var(--dark);
+            color: rgba(255,255,255,0.5);
+            padding: 4rem 2rem 2rem;
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand .nav-logo-text {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand p {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            max-width: 280px;
+        }
+
+        .footer-col h5 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1.2rem;
+        }
+
+        .footer-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .footer-col ul a {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.5);
+            transition: color 0.3s ease;
+        }
+
+        .footer-col ul a:hover {
+            color: var(--orange);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-bottom p {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.8rem;
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .footer-socials a {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .footer-socials a:hover {
+            background: var(--orange);
+            color: white;
+        }
+
+        /* ===================== SCROLL ANIMATIONS ===================== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===================== GRAIN OVERLAY ===================== */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.4;
+        }
+
+        /* ===================== RESPONSIVE ===================== */
+        @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 3rem;
+            }
+            .hero-subtitle { margin: 0 auto 2.5rem; }
+            .hero-actions { justify-content: center; }
+            .hero-stats { justify-content: center; }
+            .hero-visual { order: -1; }
+            .features-grid { grid-template-columns: repeat(2, 1fr); }
+            .steps { grid-template-columns: repeat(2, 1fr); }
+            .steps::before { display: none; }
+            .ai-content { grid-template-columns: 1fr; }
+            .ai-chat { margin: 0 auto; }
+            .pricing-grid { grid-template-columns: 1fr; max-width: 400px; }
+            .testimonials-grid { grid-template-columns: 1fr; max-width: 500px; margin: 0 auto; }
+            .footer-content { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links, .nav-cta { display: none; }
+            .mobile-menu-btn { display: block; }
+            .hero { min-height: auto; padding-top: 2rem; }
+            .hero-content { padding: 6rem 1.5rem 3rem; }
+            .hero-phone { width: 240px; height: 480px; }
+            .hero-phone-screen { padding: 1.5rem 0.8rem; }
+            .hero-floating { display: none; }
+            .section { padding: 4rem 1.5rem; }
+            .features-grid { grid-template-columns: 1fr; }
+            .steps { grid-template-columns: 1fr; gap: 2rem; }
+            .programme-grid { grid-template-columns: 1fr; }
+            .footer-content { grid-template-columns: 1fr; }
+            .footer-bottom { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-logo">
+            <div class="nav-logo-icon">L</div>
+            <div class="nav-logo-text">Lumi<span>.</span></div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#features">Fonctionnalités</a></li>
+            <li><a href="#programme">Programme</a></li>
+            <li><a href="#ia">Tuteur IA</a></li>
+            <li><a href="#pricing">Tarifs</a></li>
+        </ul>
+        <div class="nav-cta">
+            <button class="btn btn-ghost">Se connecter</button>
+            <button class="btn btn-primary">Commencer gratuitement</button>
+        </div>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <!-- MOBILE MENU -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#features" onclick="closeMenu()">Fonctionnalités</a>
+        <a href="#programme" onclick="closeMenu()">Programme</a>
+        <a href="#ia" onclick="closeMenu()">Tuteur IA</a>
+        <a href="#pricing" onclick="closeMenu()">Tarifs</a>
+        <button class="btn btn-primary btn-lg" onclick="closeMenu()">Commencer gratuitement</button>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="hero-badge">
+                    <span class="dot"></span>
+                    Disponible sur Android et Web
+                </div>
+                <h1 class="hero-title">
+                    L'éducation<br>
+                    <span class="highlight">éclairée</span> par<br>
+                    l'<span class="highlight-green">intelligence</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Prépare le CEP, le BEPC et le BAC avec un tuteur intelligent qui s'adapte à ton niveau. Programme 100% ivoirien, accessible sur mobile et web.
+                </p>
+                <div class="hero-actions">
+                    <button class="btn btn-primary btn-lg">
+                        Commencer gratuitement
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                    <button class="btn btn-outline btn-lg">Voir la démo</button>
+                </div>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <div class="hero-stat-number">50K<span>+</span></div>
+                        <div class="hero-stat-label">Élèves inscrits</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-number">12<span>M</span></div>
+                        <div class="hero-stat-label">Exercices complétés</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-number">94<span>%</span></div>
+                        <div class="hero-stat-label">Taux de réussite BAC</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-phone">
+                    <div class="hero-phone-screen">
+                        <div class="phone-header">
+                            <div class="greeting">Bonsoir 👋</div>
+                            <div class="name">Koffi Amani</div>
+                        </div>
+                        <div class="phone-card">
+                            <div class="phone-card-title">Progression du jour</div>
+                            <div class="phone-card-value">78%</div>
+                            <div class="phone-card-sub">+12% depuis hier • 🔥 15 jours streak</div>
+                        </div>
+                        <div class="phone-card phone-card-green">
+                            <div class="phone-card-title">Prochain examen blanc</div>
+                            <div class="phone-card-value">BAC Maths</div>
+                            <div class="phone-card-sub">Dans 23 jours • 4 sujets disponibles</div>
+                        </div>
+                        <div class="phone-subjects">
+                            <div class="phone-subject"><span class="icon">📐</span>Maths</div>
+                            <div class="phone-subject"><span class="icon">⚛️</span>Physique</div>
+                            <div class="phone-subject"><span class="icon">🇫🇷</span>Français</div>
+                            <div class="phone-subject"><span class="icon">🧪</span>Chimie</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-floating f1">
+                    <span class="emoji">🎯</span>
+                    <div class="text">
+                        <strong>+25 XP</strong>
+                        <span>Exercice Maths terminé</span>
+                    </div>
+                </div>
+                <div class="hero-floating f2">
+                    <span class="emoji">🏆</span>
+                    <div class="text">
+                        <strong>Nouveau badge !</strong>
+                        <span>Maître de la Géométrie</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TRUSTED -->
+    <section class="trusted">
+        <div class="trusted-label">Ils nous font confiance</div>
+        <div class="trusted-logos">
+            <div class="trusted-item">🎓 MEN Côte d'Ivoire</div>
+            <div class="trusted-item">🏫 INP-HB</div>
+            <div class="trusted-item">📚 Lycée Technique d'Abidjan</div>
+            <div class="trusted-item">🌍 UNESCO CI</div>
+            <div class="trusted-item">💡 Orange CI</div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features section" id="features">
+        <div class="section-container">
+            <div class="section-header reveal">
+                <div class="section-tag">Fonctionnalités</div>
+                <h2 class="section-title">Tout ce qu'il faut pour<br>réussir tes examens</h2>
+                <p class="section-desc">Une plateforme complète pensée pour le système éducatif ivoirien, avec l'intelligence artificielle comme copilote.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card reveal">
+                    <div class="feature-icon orange">📖</div>
+                    <h3 class="feature-title">Cours au programme national</h3>
+                    <p class="feature-desc">Leçons rédigées selon le programme officiel du MEN, de la 6ème à la Terminale, toutes filières.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon green">🤖</div>
+                    <h3 class="feature-title">Tuteur IA 24/7</h3>
+                    <p class="feature-desc">Pose n'importe quelle question, l'IA t'explique pas à pas avec des exemples concrets du quotidien ivoirien.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon purple">📝</div>
+                    <h3 class="feature-title">Exercices adaptatifs</h3>
+                    <p class="feature-desc">La difficulté s'ajuste à ton niveau. L'IA identifie tes faiblesses et cible les exercices qui te feront progresser.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon blue">🎯</div>
+                    <h3 class="feature-title">Préparation examens</h3>
+                    <p class="feature-desc">Sujets corrigés du CEP, BEPC et BAC des 10 dernières années. Examens blancs en conditions réelles.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon pink">🏆</div>
+                    <h3 class="feature-title">Gamification</h3>
+                    <p class="feature-desc">Gagne des XP, débloque des badges, grimpe dans le classement national et régional. Apprendre n'a jamais été aussi motivant.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon teal">📱</div>
+                    <h3 class="feature-title">Mode hors ligne</h3>
+                    <p class="feature-desc">Télécharge tes cours et exercices pour travailler sans connexion internet. Idéal pour les zones à faible couverture réseau.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="how-it-works section">
+        <div class="section-container">
+            <div class="section-header reveal">
+                <div class="section-tag">Comment ça marche</div>
+                <h2 class="section-title">4 étapes vers la réussite</h2>
+                <p class="section-desc">Inscris-toi en moins de 2 minutes et commence à apprendre immédiatement.</p>
+            </div>
+            <div class="steps">
+                <div class="step reveal">
+                    <div class="step-number">1</div>
+                    <h4 class="step-title">Crée ton compte</h4>
+                    <p class="step-desc">Inscris-toi avec ton numéro de téléphone ou ton email. Choisis ta classe et ta filière.</p>
+                </div>
+                <div class="step reveal">
+                    <div class="step-number">2</div>
+                    <h4 class="step-title">Découvre tes cours</h4>
+                    <p class="step-desc">Accède aux leçons de tes matières. L'IA évalue ton niveau initial avec un quiz diagnostic.</p>
+                </div>
+                <div class="step reveal">
+                    <div class="step-number">3</div>
+                    <h4 class="step-title">Pratique et progresse</h4>
+                    <p class="step-desc">Fais des exercices, pose des questions au tuteur IA, et gagne des points à chaque leçon maîtrisée.</p>
+                </div>
+                <div class="step reveal">
+                    <div class="step-number">4</div>
+                    <h4 class="step-title">Réussis ton examen</h4>
+                    <p class="step-desc">Passe des examens blancs, reçois un rapport détaillé et suis ton programme de révision personnalisé.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROGRAMME -->
+    <section class="programme section" id="programme">
+        <div class="section-container">
+            <div class="section-header reveal">
+                <div class="section-tag">Programme scolaire</div>
+                <h2 class="section-title">Du collège au lycée,<br>toutes les filières</h2>
+                <p class="section-desc">Contenu aligné sur le programme officiel ivoirien, mis à jour chaque année scolaire.</p>
+            </div>
+            <div class="programme-grid">
+                <div class="programme-card reveal">
+                    <div class="programme-level college">6ème<br>3ème</div>
+                    <div class="programme-info">
+                        <h4>Collège</h4>
+                        <p>Toutes les matières du programme national, préparation CEP et BEPC incluse.</p>
+                    </div>
+                </div>
+                <div class="programme-card reveal">
+                    <div class="programme-level lycee">2nde<br>Term</div>
+                    <div class="programme-info">
+                        <h4>Lycée — Toutes filières</h4>
+                        <p>A, C, D, E, F, G, TI. Cours, exercices et sujets de BAC pour chaque série.</p>
+                    </div>
+                </div>
+                <div class="programme-card reveal">
+                    <div class="programme-level exam">CEP<br>BEPC<br>BAC</div>
+                    <div class="programme-info">
+                        <h4>Préparation examens</h4>
+                        <p>Sujets des 10 dernières années corrigés, examens blancs et programmes de révision IA.</p>
+                    </div>
+                </div>
+                <div class="programme-card reveal">
+                    <div class="programme-level all">Toutes<br>matières</div>
+                    <div class="programme-info">
+                        <h4>+15 matières couvertes</h4>
+                        <p>Maths, Physique, Chimie, SVT, Français, Anglais, Histoire-Géo, Philo, et plus.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI SECTION -->
+    <section class="ai-section section" id="ia">
+        <div class="section-container">
+            <div class="section-header reveal">
+                <div class="section-tag">Intelligence Artificielle</div>
+                <h2 class="section-title">Un tuteur personnel<br>disponible 24h/24</h2>
+                <p class="section-desc">L'IA de Lumi comprend tes questions en français et t'explique avec des mots simples, adaptés à ton niveau.</p>
+            </div>
+            <div class="ai-content">
+                <div class="ai-chat reveal">
+                    <div class="ai-chat-header">
+                        <div class="ai-avatar">💡</div>
+                        <div class="ai-chat-header-info">
+                            <strong>Lumi AI</strong>
+                            <span>En ligne • Prêt à aider</span>
+                        </div>
+                    </div>
+                    <div class="chat-messages">
+                        <div class="chat-msg user">
+                            Je n'arrive pas à résoudre une équation du second degré. Tu peux m'aider ?
+                        </div>
+                        <div class="chat-msg ai">
+                            Bien sûr ! Imagine que tu veux trouver le prix de deux oranges dont la somme est 7 et le produit est 12. L'équation x² - 7x + 12 = 0 te donne la réponse : x = 3 et x = 4. 🍊
+                        </div>
+                        <div class="chat-msg ai">
+                            Voici la méthode pas à pas :<br><br>
+                            <strong>1.</strong> Calcule le discriminant : Δ = b² - 4ac<br>
+                            <strong>2.</strong> Si Δ > 0, tu as 2 solutions<br>
+                            <strong>3.</strong> Les solutions sont : x = (-b ± √Δ) / 2a<br><br>
+                            Tu veux qu'on fasse un exercice ensemble ? 💪
+                        </div>
+                        <div class="chat-msg user">
+                            Oui, donne-moi un exercice !
+                        </div>
+                        <div class="chat-msg ai">
+                            Résous : x² - 5x + 6 = 0 📝<br><br>
+                            Je t'attends ! Prends ton temps.
+                        </div>
+                    </div>
+                </div>
+                <div class="reveal">
+                    <ul class="ai-features-list">
+                        <li>
+                            <div class="check">✓</div>
+                            <div>
+                                <h4>Explications adaptées à ton niveau</h4>
+                                <p>L'IA utilise des exemples du quotidien ivoirien pour rendre les concepts concrets et mémorables.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="check">✓</div>
+                            <div>
+                                <h4>Résolution pas à pas</h4>
+                                <p>Chaque problème est décomposé en étapes simples avec les formules et méthodes du programme.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="check">✓</div>
+                            <div>
+                                <h4>Disponible 24h/24, 7j/7</h4>
+                                <p>Pas besoin d'attendre le cours de demain. Pose ta question à n'importe quel moment.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="check">✓</div>
+                            <div>
+                                <h4>Suggestions d'exercices ciblées</h4>
+                                <p>Après chaque échange, l'IA te propose des exercices pour consolider ce que tu viens d'apprendre.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING -->
+    <section class="pricing section" id="pricing">
+        <div class="section-container">
+            <div class="section-header reveal">
+                <div class="section-tag">Tarifs</div>
+                <h2 class="section-title">Un investissement pour<br>ta réussite</h2>
+                <p class="section-desc">Commence gratuitement. Passe au Premium quand tu veux pour un accès illimité.</p>
+            </div>
+            <div class="pricing-toggle reveal">
+                <span id="monthlyLabel" class="active">Mensuel</span>
+                <div class="toggle-switch" id="pricingToggle" onclick="togglePricing()"></div>
+                <span id="yearlyLabel">Annuel <strong style="color: var(--orange);">-40%</strong></span>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card reveal">
+                    <div class="pricing-name">Gratuit</div>
+                    <div class="pricing-desc">Pour découvrir Lumi et commencer à apprendre.</div>
+                    <div class="pricing-price">
+                        <span class="pricing-amount">0</span>
+                        <span class="pricing-currency">FCFA</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><span class="check-icon">✓</span> Accès aux résumés de cours</li>
+                        <li><span class="check-icon">✓</span> 5 exercices par jour</li>
+                        <li><span class="check-icon">✓</span> 3 questions à l'IA par jour</li>
+                        <li><span class="check-icon">✓</span> Sujets d'examens (sans correction)</li>
+                        <li><span class="check-icon">✓</span> Statistiques basiques</li>
+                        <li><span class="cross-icon">✗</span> <span style="opacity:0.5;">Mode hors ligne complet</span></li>
+                        <li><span class="cross-icon">✗</span> <span style="opacity:0.5;">Examens blancs</span></li>
+                    </ul>
+                    <button class="btn btn-outline">S'inscrire gratuitement</button>
+                </div>
+                <div class="pricing-card popular reveal">
+                    <div class="pricing-popular-badge">Le plus populaire</div>
+                    <div class="pricing-name">Premium</div>
+                    <div class="pricing-desc">Accès total à tout le contenu et à l'IA.</div>
+                    <div class="pricing-price">
+                        <span class="pricing-amount" id="premiumPrice">2 500</span>
+                        <span class="pricing-currency">FCFA</span>
+                        <span class="pricing-period" id="premiumPeriod">/mois</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><span class="check-icon">✓</span> Tout le contenu Gratuit +</li>
+                        <li><span class="check-icon">✓</span> Exercices illimités</li>
+                        <li><span class="check-icon">✓</span> Tuteur IA illimité</li>
+                        <li><span class="check-icon">✓</span> Examens blancs complets</li>
+                        <li><span class="check-icon">✓</span> Corrections détaillées IA</li>
+                        <li><span class="check-icon">✓</span> Mode hors ligne complet</li>
+                        <li><span class="check-icon">✓</span> Parcours adaptatif IA</li>
+                        <li><span class="check-icon">✓</span> Sans publicité</li>
+                    </ul>
+                    <button class="btn btn-primary">Essai gratuit 7 jours</button>
+                </div>
+                <div class="pricing-card reveal">
+                    <div class="pricing-name">Pack Famille</div>
+                    <div class="pricing-desc">Jusqu'à 3 enfants sur un seul abonnement.</div>
+                    <div class="pricing-price">
+                        <span class="pricing-amount" id="familyPrice">30 000</span>
+                        <span class="pricing-currency">FCFA</span>
+                        <span class="pricing-period" id="familyPeriod">/an</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><span class="check-icon">✓</span> Tout le Premium inclus</li>
+                        <li><span class="check-icon">✓</span> Jusqu'à 3 comptes enfants</li>
+                        <li><span class="check-icon">✓</span> Espace parent dédié</li>
+                        <li><span class="check-icon">✓</span> Rapports de progression</li>
+                        <li><span class="check-icon">✓</span> Notifications aux parents</li>
+                        <li><span class="check-icon">✓</span> Économie de 55%</li>
+                    </ul>
+                    <button class="btn btn-green">Choisir ce pack</button>
+                </div>
+            </div>
+            <div class="reveal" style="text-align: center; margin-top: 2rem;">
+                <p style="font-family: 'Outfit', sans-serif; font-size: 0.85rem; color: var(--text-light);">
+                    Paiement via <strong>Orange Money</strong>, <strong>Moov Money</strong>, <strong>MTN Money</strong> ou carte bancaire
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="testimonials section">
+        <div class="section-container">
+            <div class="section-header reveal">
+                <div class="section-tag">Témoignages</div>
+                <h2 class="section-title">Ce que disent<br>nos élèves</h2>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card reveal">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"Grâce à Lumi, j'ai eu 16 au BAC en maths ! Le tuteur IA m'a expliqué la trigonométrie d'une façon que même mon prof n'avait pas réussi à faire."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar orange">AK</div>
+                        <div>
+                            <div class="testimonial-name">Awa Koné</div>
+                            <div class="testimonial-role">Terminale D — Abidjan</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card reveal">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"Ma fille est passée de 8 à 14 de moyenne en 3 mois. Le suivi parent m'a permis de voir exactement où elle avait des difficultés."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar green">MD</div>
+                        <div>
+                            <div class="testimonial-name">Moussa Diallo</div>
+                            <div class="testimonial-role">Parent d'élève — Yamoussoukro</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card reveal">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"J'utilise Lumi pour préparer mes cours et donner des exercices personnalisés à mes élèves. C'est devenu un outil indispensable."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar purple">BT</div>
+                        <div>
+                            <div class="testimonial-name">Brou Touré</div>
+                            <div class="testimonial-role">Prof de Physique — Bouaké</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="cta-content reveal">
+            <h2 class="cta-title">Prêt à éclairer<br>ton avenir ?</h2>
+            <p class="cta-desc">Rejoins des milliers d'élèves ivoiriens qui préparent leurs examens avec Lumi. Commence gratuitement aujourd'hui.</p>
+            <div class="cta-actions">
+                <button class="btn btn-primary btn-lg">
+                    Créer mon compte gratuit
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                <button class="btn btn-outline btn-lg" style="color:white; border-color: rgba(255,255,255,0.3);">Voir la démo</button>
+            </div>
+            <p class="cta-note">Aucune carte bancaire requise • Essai Premium de 7 jours • Annulation à tout moment</p>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="nav-logo-text" style="font-size: 1.8rem;">Lumi<span style="color: var(--orange);">.</span></div>
+                <p>L'éducation éclairée par l'intelligence. Plateforme éducative intelligente pour le système scolaire ivoirien.</p>
+            </div>
+            <div class="footer-col">
+                <h5>Plateforme</h5>
+                <ul>
+                    <li><a href="#">Fonctionnalités</a></li>
+                    <li><a href="#">Tarifs</a></li>
+                    <li><a href="#">Programme scolaire</a></li>
+                    <li><a href="#">Tuteur IA</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Ressources</h5>
+                <ul>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Guide d'utilisation</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Légal</h5>
+                <ul>
+                    <li><a href="#">Conditions d'utilisation</a></li>
+                    <li><a href="#">Politique de confidentialité</a></li>
+                    <li><a href="#">Mentions légales</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Lumi — L'Éducation Éclairée. Tous droits réservés. 🇨🇮</p>
+            <div class="footer-socials">
+                <a href="#" aria-label="Facebook">f</a>
+                <a href="#" aria-label="Twitter">𝕏</a>
+                <a href="#" aria-label="Instagram">ig</a>
+                <a href="#" aria-label="TikTok">tk</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenuBtn.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        });
+        function closeMenu() {
+            mobileMenuBtn.classList.remove('active');
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Pricing toggle
+        let isYearly = false;
+        function togglePricing() {
+            isYearly = !isYearly;
+            const toggle = document.getElementById('pricingToggle');
+            const monthlyLabel = document.getElementById('monthlyLabel');
+            const yearlyLabel = document.getElementById('yearlyLabel');
+            const premiumPrice = document.getElementById('premiumPrice');
+            const premiumPeriod = document.getElementById('premiumPeriod');
+            const familyPrice = document.getElementById('familyPrice');
+            const familyPeriod = document.getElementById('familyPeriod');
+
+            toggle.classList.toggle('yearly');
+            monthlyLabel.classList.toggle('active');
+            yearlyLabel.classList.toggle('active');
+
+            if (isYearly) {
+                premiumPrice.textContent = '18 000';
+                premiumPeriod.textContent = '/an';
+                familyPrice.textContent = '30 000';
+                familyPeriod.textContent = '/an';
+            } else {
+                premiumPrice.textContent = '2 500';
+                premiumPeriod.textContent = '/mois';
+                familyPrice.textContent = '30 000';
+                familyPeriod.textContent = '/an';
+            }
+        }
+
+        // Scroll reveal animations
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        reveals.forEach(el => observer.observe(el));
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
